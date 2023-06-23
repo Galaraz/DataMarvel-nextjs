@@ -14,9 +14,17 @@ const handlerSearch = async () => {
   if (searchText !== '') {
     const result = await fetch(`/api/search?q=${searchText}`);
     const json = await result.json();
-    const { results } = json.data;
-    console.log(json.data);
-    setHeroList(results);
+    const results = json.data.results;
+    // const results  = json.data;
+    // console.log(json.data);
+    
+    const heroItems = results.map(item => ({
+      id: item.id,
+      title: item.name,
+      image: `${item.thumbnail.path}.${item.thumbnail.extension}`,
+      // Adicione outras propriedades necessárias do herói aqui
+    }));
+    setHeroList(heroItems);
   }
 }
 
@@ -38,16 +46,16 @@ const handlerSearch = async () => {
 
        
    
-        {/* <ul>
-          {heroList.map((item) => (
-            <li key={item.id}>
-              <a href={`/movie/${item.id}`}>
-                <img src={`https://image.tmdb.org/t/p/original${item.poster_path}`} width="150" /><br/>
-                {item.title}
-              </a>
-            </li>
-          ))}
-        </ul> */}
+        <ul>
+        {heroList.map((item) => (
+          <li key={item.id}>
+            <a href={`/hero/${item.id}`}>
+              <img src={item.image} width="150" /><br/>
+              {item.title}
+            </a>
+          </li>
+        ))}
+      </ul>
       
    
       </main>
