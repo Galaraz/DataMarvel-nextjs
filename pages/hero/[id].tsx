@@ -1,13 +1,18 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { urlSite } from "../../lib/marvelUtils";
+import { Hero } from '../../types';
+import { urlSite } from '../../lib/marvelUtils';
 import styles from '../../styles/Home.module.css';
 
-export default function HeroItem({ info }) {
+interface HeroItemProps {
+  info: Hero;
+}
+
+export default function HeroItem({ info }: HeroItemProps) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+      <title>Data Marvel - Resultado</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -21,10 +26,10 @@ export default function HeroItem({ info }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
   const result = await fetch(`${urlSite}/api/hero/${context.params.id}`);
   const json = await result.json();
-  console.log(json)
+  console.log(json);
   return {
     props: {
       info: json.hero,

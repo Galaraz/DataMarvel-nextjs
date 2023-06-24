@@ -1,19 +1,19 @@
- import md5 from 'md5';
- const publicKey  = process.env.NEXT_PUBLIC_public_key;
- const privateKey = process.env.NEXT_PUBLIC_private_key;
+import md5 from 'md5';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-function generateHash(ts) {
+const publicKey = process.env.NEXT_PUBLIC_public_key;
+const privateKey = process.env.NEXT_PUBLIC_private_key;
+
+function generateHash(ts: string): string {
   const hash = md5(ts + privateKey + publicKey);
   return hash;
 }
 
-export default async function search(req, res) {
+export default async function search(req: NextApiRequest, res: NextApiResponse) {
   const ts = new Date().getTime().toString();
   const hash = generateHash(ts);
 
   const { q } = req.query;
-
-  
 
   const url = `https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}&nameStartsWith=${q}`;
 
