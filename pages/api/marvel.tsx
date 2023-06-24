@@ -1,14 +1,15 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import md5 from 'md5';
 
-const publicKey  = process.env.NEXT_PUBLIC_public_key;
+const publicKey = process.env.NEXT_PUBLIC_public_key;
 const privateKey = process.env.NEXT_PUBLIC_private_key;
 
-function generateHash(ts) {
+function generateHash(ts: string): string {
   const hash = md5(ts + privateKey + publicKey);
   return hash;
 }
 
-export default async function fetchMarvelData(req, res) {
+export default async function search(req: NextApiRequest, res: NextApiResponse) {
   const ts = new Date().getTime().toString();
   const hash = generateHash(ts);
 

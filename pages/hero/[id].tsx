@@ -1,8 +1,19 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { Hero } from '../../types';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+
 import { urlSite } from '../../lib/marvelUtils';
 import styles from '../../styles/Home.module.css';
+
+interface Hero {
+  id: number;
+  name: string;
+  description: string;
+  thumbnail: {
+    path: string;
+    extension: string;
+  };
+}
 
 interface HeroItemProps {
   info: Hero;
@@ -12,7 +23,7 @@ export default function HeroItem({ info }: HeroItemProps) {
   return (
     <div className={styles.container}>
       <Head>
-      <title>Data Marvel - Resultado</title>
+        <title>Data Marvel - Resultado</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -26,13 +37,22 @@ export default function HeroItem({ info }: HeroItemProps) {
   );
 }
 
-export async function getServerSideProps(context: any) {
-  const result = await fetch(`${urlSite}/api/hero/${context.params.id}`);
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+  const heroId = context.params?.id;
+  
+  if (!heroId) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const result = await fetch(`${urlSite}/api/hero/${heroId}`);
   const json = await result.json();
   console.log(json);
+
   return {
     props: {
       info: json.hero,
     },
   };
-}
+};
