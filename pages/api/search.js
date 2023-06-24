@@ -1,7 +1,6 @@
  import md5 from 'md5';
-
-const publicKey = '152afcb329c7159c72b19f0fd2b9d771';
-const privateKey = '7ee417ef048c13d2322e4e0dec402f736161464e';
+ const publicKey  = process.env.NEXT_PUBLIC_public_key;
+ const privateKey = process.env.NEXT_PUBLIC_private_key;
 
 function generateHash(ts) {
   const hash = md5(ts + privateKey + publicKey);

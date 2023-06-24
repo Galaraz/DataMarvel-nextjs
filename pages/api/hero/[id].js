@@ -27,7 +27,10 @@ try {
        path: heroData.thumbnail.path,
        extension: heroData.thumbnail.extension,
      },
-     // Adicione outras propriedades necessárias do herói aqui
+    comics: heroData.comics.results,
+    series: heroData.series.results,
+    stories: heroData.stories.results,
+    events: heroData.events.results
    };
    res.status(200).json({ hero });
  } catch (error) {
