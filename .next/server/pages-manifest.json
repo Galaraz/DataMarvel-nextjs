@@ -1,11 +1,9 @@
 {
   "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/": "pages/index.js",
   "/api/hero/[id]": "pages/api/hero/[id].js",
   "/api/search": "pages/api/search.js",
-  "/api/marvel": "pages/api/marvel.js",
-  "/_error": "pages/_error.js",
-  "/": "pages/index.html",
-  "/hero/[id]": "pages/hero/[id].js",
-  "/_document": "pages/_document.js",
-  "/404": "pages/404.html"
+  "/hero/[id]": "pages/hero/[id].js"
 }
