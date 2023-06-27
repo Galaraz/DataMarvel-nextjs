@@ -16,6 +16,7 @@ interface BuscaProps {
 export default function Busca({ list }: BuscaProps) {
   const [searchText, setSearchText] = useState<string>('');
   const [heroList, setHeroList] = useState<Hero[]>([]);
+  const [notFound, setNotFound] = useState(false);
 
   const Button = styled.button`
   padding: 8px 16px;
@@ -29,22 +30,31 @@ export default function Busca({ list }: BuscaProps) {
     background-color: #cc0000;
   }
   `;
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handlerSearch();
+    }
+  };
+  const handlerSearch = async () => {
+    if (searchText !== '') {
+      const result = await fetch(`/api/search?q=${searchText}`);
+      const json = await result.json();
+      const results = json.data.results;
 
-const handlerSearch = async () => { 
-  if (searchText !== '') {
-    const result = await fetch(`/api/search?q=${searchText}`);
-    const json = await result.json();
-    console.log(json)
-    const results = json.data.results;
-
-    const heroItems: Hero[] = results.map((item: any) => ({
-      id: item.id,
-      title: item.name,
-      image: `${item.thumbnail.path}.${item.thumbnail.extension}`,
-    }));
-    setHeroList(heroItems);
-  }
-};
+      if (results.length > 0) {
+        const heroItems: Hero[] = results.map((item: any) => ({
+          id: item.id,
+          title: item.name,
+          image: `${item.thumbnail.path}.${item.thumbnail.extension}`,
+        }));
+        setHeroList(heroItems);
+        setNotFound(false);
+      } else {
+        setHeroList([]);
+        setNotFound(true);
+      }
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -59,11 +69,16 @@ const handlerSearch = async () => {
         Busca
         </h1>
 
-        <input type="text" value={searchText} onChange={e=>setSearchText(e.target.value)} />
+        <input type="text" value={searchText} onChange={e=>setSearchText(e.target.value)} onKeyPress={handleKeyPress} />
         <br></br>    
         <Button onClick={handlerSearch}>Buscar</Button>
 
-
+        {notFound && (
+        <div>
+          <p>Herói não encontrado</p>
+          <Image src="/not-found-image.png" alt="Herói não encontrado" width={200} height={200} />
+        </div>
+      )}
        
    
         <ul>
