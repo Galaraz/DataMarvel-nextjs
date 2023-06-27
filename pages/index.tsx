@@ -34,6 +34,7 @@ const handlerSearch = async () => {
   if (searchText !== '') {
     const result = await fetch(`/api/search?q=${searchText}`);
     const json = await result.json();
+    console.log(json)
     const results = json.data.results;
 
     const heroItems: Hero[] = results.map((item: any) => ({
@@ -46,7 +47,8 @@ const handlerSearch = async () => {
 };
 
   return (
-    <div className={styles.container}> 
+    <div className={styles.container}>
+      <div className={styles.backgroundImage}></div> 
       <Head>
         <title>Data Marvel</title>
         <link rel="icon" href="/favicon.ico" />

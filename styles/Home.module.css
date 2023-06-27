@@ -10,7 +10,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url('/pxfuel.jpg');
 }
+
+ /* .backgroundImage {
+  background-image: url('/pxfuel.jpg');
+  background-size: cover;
+  background-position: center;
+} */
 
 
 .main ul  {
