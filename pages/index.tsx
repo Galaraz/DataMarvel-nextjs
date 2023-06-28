@@ -77,7 +77,7 @@ export default function Busca({ list }: BuscaProps) {
         {notFound && (
         <div>
           <p>Herói não encontrado</p>
-          <Image src="/not-found-image.png" alt="Herói não encontrado" width={200} height={200} />
+          <Image src="/dead-pool-sadness.png" alt="Herói não encontrado" width={200} height={200} />
         </div>
       )}
        
