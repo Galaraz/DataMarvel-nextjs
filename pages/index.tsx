@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 import styles from '../styles/Home.module.css';
+import Image from 'next/image';
 
 interface Hero {
   id: number;
