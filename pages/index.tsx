@@ -14,7 +14,7 @@ interface BuscaProps {
   list: Hero[];
 }
 
-export default function Busca({ list }: BuscaProps) {
+export default function Home({ list }: BuscaProps) {
   const [searchText, setSearchText] = useState<string>('');
   const [heroList, setHeroList] = useState<Hero[]>([]);
   const [notFound, setNotFound] = useState(false);
@@ -76,7 +76,7 @@ export default function Busca({ list }: BuscaProps) {
 
         {notFound && (
         <div>
-          <p>Herói não encontrado</p>
+          <p>Herói não encontrado XD</p>
           <Image src="/dead-pool-sadness.png" alt="Herói não encontrado" width={200} height={200} />
         </div>
       )}
